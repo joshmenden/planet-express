@@ -6,6 +6,7 @@ option go_package = "pkg/planetexpress";
 message Delivery {
   int32 number_of_packages = 1;
   string delivery_date = 2;
+  string uuid = 3;
 }
 
 message ListDeliveriesResponse {

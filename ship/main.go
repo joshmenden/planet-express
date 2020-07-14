@@ -26,8 +26,8 @@ func newServer() *planetExpressShipServer {
 func (s *planetExpressShipServer) GetShip(ctx context.Context, empty *empty.Empty) (*pb.GetShipResponse, error) {
 	return &pb.GetShipResponse{
 		Ship: &pb.Ship{
-			Name:      "planet express ship",
-			Location:  "omicron persei 8",
+			Name:      "the millenium falcon",
+			Location:  "tatooine",
 			FuelLevel: pb.Ship_FULL,
 		},
 	}, nil

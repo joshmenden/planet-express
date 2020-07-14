@@ -37,6 +37,7 @@ const schemaString = `
 		ship: Ship!
 		deliveries: [Delivery!]!
 		delivery(uuid: String!): Delivery!
+		crew: Crew!
 	}
 
 	enum FuelLevel {
@@ -73,6 +74,13 @@ func (r *RootResolver) Delivery(args struct{ UUID string }) (pb.Delivery, error)
 	defer conn.Close()
 	delivery, _ := getDelivery(client, args.UUID)
 	return delivery, nil
+}
+
+func (r *RootResolver) Crew() (pb.Crew, error) {
+	client, conn := getPbClient()
+	defer conn.Close()
+	pbCrew, _ := getCrew(client)
+	return pbCrew, nil
 }
 
 var (

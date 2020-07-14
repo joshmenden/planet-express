@@ -96,14 +96,14 @@ func main() {
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
 
 	ship, _ := getShip(client)
-	crew, _ := getCrew(client)
-	deliveries, _ := listDeliveries(client)
-	delivery, _ := getDelivery(client)
-	testJSON, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&delivery)
+	// crew, _ := getCrew(client)
+	// deliveries, _ := listDeliveries(client)
+	// delivery, _ := getDelivery(client)
+	testJSON, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&ship)
 
 	log.Println(testJSON)
-	log.Println(ship)
-	log.Println(crew)
-	log.Println(deliveries)
-	log.Println(delivery)
+	// log.Println(ship)
+	// log.Println(crew)
+	// log.Println(deliveries)
+	// log.Println(delivery)
 }

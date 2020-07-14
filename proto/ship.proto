@@ -19,6 +19,7 @@ message Ship {
 
   Crew crew = 4;
   Delivery delivery = 5;
+  repeated Delivery deliveries = 6;
 }
 
 message GetShipResponse {

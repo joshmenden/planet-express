@@ -64,7 +64,7 @@ func getDelivery(client pb.PlanetExpressClient) (pb.Delivery, error) {
 	defer cancel()
 
 	request := &pb.GetDeliveryRequest{
-		Uuid: "71781e9f-96e6-4272-8eb2-dcc32b868ecc",
+		Uuid: "1fd2567c-78fa-457b-a9dd-176826087058",
 	}
 
 	resp, err := client.GetDelivery(ctx, request)
@@ -99,9 +99,9 @@ func main() {
 	crew, _ := getCrew(client)
 	deliveries, _ := listDeliveries(client)
 	delivery, _ := getDelivery(client)
-	test_json, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&delivery)
+	testJSON, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&delivery)
 
-	log.Println(test_json)
+	log.Println(testJSON)
 	log.Println(ship)
 	log.Println(crew)
 	log.Println(deliveries)

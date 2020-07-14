@@ -24,14 +24,17 @@ var crew = pb.GetCrewResponse{
 var deliveries = pb.ListDeliveriesResponse{
 	Deliveries: []*pb.Delivery{
 		&pb.Delivery{
+			Uuid:             "c7b3e7e3-8049-4741-a1cd-32a70f2165fb",
 			NumberOfPackages: 3,
 			DeliveryDate:     "2020-07-15 00:00:00 -0600",
 		},
 		&pb.Delivery{
+			Uuid:             "d220d52b-ab27-42df-96ca-1a3693ad3477",
 			NumberOfPackages: 1,
 			DeliveryDate:     "2020-07-17 00:00:00 -0600",
 		},
 		&pb.Delivery{
+			Uuid:             "1fd2567c-78fa-457b-a9dd-176826087058",
 			NumberOfPackages: 12,
 			DeliveryDate:     "2020-08-17 00:00:00 -0600",
 		},
@@ -62,12 +65,15 @@ func (s *planetExpressShipServer) GetCrew(ctx context.Context, empty *empty.Empt
 }
 
 func (s *planetExpressShipServer) GetDelivery(ctx context.Context, request *pb.GetDeliveryRequest) (*pb.GetDeliveryResponse, error) {
+	// search for delivery by given uuid
+	var desiredPackage *pb.Delivery
+	for _, v := range deliveries.Deliveries {
+		if v.GetUuid() == request.GetUuid() {
+			desiredPackage = v
+		}
+	}
 	return &pb.GetDeliveryResponse{
-		Delivery: &pb.Delivery{
-			Uuid:             request.GetUuid(),
-			NumberOfPackages: 50,
-			DeliveryDate:     "2020-09-15 00:00:00 -0600",
-		},
+		Delivery: desiredPackage,
 	}, nil
 }
 

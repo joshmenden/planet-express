@@ -1,22 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { gql } from '@apollo/client';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import './App.css';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.primary,
-  },
-}));
+import Ship from './Ship'
 
 const client = new ApolloClient({
   uri: 'http://localhost:8080/query',
@@ -24,54 +12,71 @@ const client = new ApolloClient({
 });
 
 
-function getShipInfo() {
-  client
-  .query({
-    query: gql`
-      query GetShip {
-          ship {
-              name
-              location
-              fuelLevel
-              deliveries {
-                  numberOfPackages
-                  uuid
-                  deliveryDate
-              }
-              crew {
-                  crewName
-                  crewMembers {
-                      role
-                      name
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ship: null
+    };
+    this.setupShip = this.setupShip.bind(this);
+  }
+
+  async setupShip () {
+    const ship = await this.getShipInfo()
+    this.setState({ ship: ship })
+  }
+
+  async getShipInfo() {
+    return new Promise(resolve => {
+      client.query({
+        query: gql`
+          query GetShip {
+              ship {
+                  name
+                  location
+                  fuelLevel
+                  deliveries {
+                      numberOfPackages
+                      uuid
+                      deliveryDate
+                  }
+                  crew {
+                      crewName
+                      crewMembers {
+                          role
+                          name
+                      }
                   }
               }
           }
-      }
-    `
-  })
-  .then(result => console.log(result));
+        `
+      })
+      .then((result) => {
+        console.log(result)
+        resolve(result.data.ship)
+      });
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+        <Grid container spacing={3}>
+          <Grid item sm={12} md={6} >
+            <p>
+              Planet Express!
+            </p>
+            <Button color="primary" variant="contained" onClick={this.setupShip}>Get Ship Information</Button>
+          </Grid>
+          <Grid item sm={12} md={6} >
+            <Ship ship={this.state.ship} />
+          </Grid>
+        </Grid>
+        </header>
+      </div>
+    );
+  }
 }
 
-
-function App() {
-  const classes = useStyles();
-  return (
-    <div className="App">
-      <header className="App-header">
-      <Grid container spacing={3}>
-        <Grid item sm={12} md={6} >
-          <p>
-            Planet Express!
-          </p>
-          <Button color="primary" variant="contained" onClick={getShipInfo}>Get Ship Information</Button>
-        </Grid>
-        <Grid item sm={12} md={6} >
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-      </Grid>
-      </header>
-    </div>
-  );
-}
-
-export default App;

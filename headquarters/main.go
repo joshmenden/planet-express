@@ -3,10 +3,7 @@ package main
 import (
 	"flag"
 	"log"
-	"net/http"
 
-	graphql "github.com/graph-gophers/graphql-go"
-	"github.com/graph-gophers/graphql-go/relay"
 	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
 
 	"github.com/golang/protobuf/jsonpb"
@@ -16,10 +13,6 @@ import (
 var (
 	serverAddr = flag.String("server_addr", "localhost:10000", "The server address in the format of host:port")
 )
-
-type query struct{}
-
-func (_ *query) Hello() string { return "Hello, world!" }
 
 func main() {
 	log.Println("Planet Express Headquarters")
@@ -43,12 +36,6 @@ func main() {
 	log.Printf(json)
 
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
-	s := `
-					type Query {
-									hello: String!
-					}
-	`
-	schema := graphql.MustParseSchema(s, &query{})
-	http.Handle("/query", &relay.Handler{Schema: schema})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	// http.Handle("/query", &relay.Handler{Schema: Schema})
+	// log.Fatal(http.ListenAndServe(":8080", nil))
 }

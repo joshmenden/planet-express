@@ -51,6 +51,7 @@ func newServer() *planetExpressShipServer {
 }
 
 func (s *planetExpressShipServer) GetShip(ctx context.Context, empty *empty.Empty) (*pb.GetShipResponse, error) {
+	log.Printf("Getting ship...")
 	return &pb.GetShipResponse{
 		Ship: &pb.Ship{
 			Name:       "the millenium falcon",
@@ -63,10 +64,12 @@ func (s *planetExpressShipServer) GetShip(ctx context.Context, empty *empty.Empt
 }
 
 func (s *planetExpressShipServer) GetCrew(ctx context.Context, empty *empty.Empty) (*pb.GetCrewResponse, error) {
+	log.Printf("Getting crew...")
 	return &crew, nil
 }
 
 func (s *planetExpressShipServer) GetDelivery(ctx context.Context, request *pb.GetDeliveryRequest) (*pb.GetDeliveryResponse, error) {
+	log.Printf("Getting delivery...")
 	// search for delivery by given uuid
 	var desiredPackage *pb.Delivery
 	for _, v := range deliveries.Deliveries {
@@ -80,6 +83,7 @@ func (s *planetExpressShipServer) GetDelivery(ctx context.Context, request *pb.G
 }
 
 func (s *planetExpressShipServer) ListDeliveries(ctx context.Context, empty *empty.Empty) (*pb.ListDeliveriesResponse, error) {
+	log.Printf("Listing deliveries...")
 	return &deliveries, nil
 }
 

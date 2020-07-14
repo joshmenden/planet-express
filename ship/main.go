@@ -71,17 +71,6 @@ func (s *planetExpressShipServer) ListDeliveries(ctx context.Context, empty *emp
 	}, nil
 }
 
-// func (s *planetExpressShipServer) ListDeliveries(ctx context.Context, empty *empty.Empty) (*pb.ListDeliveriesResponse, error) {
-// 	return &pb.ListDeliveriesResponse{
-// 		Deliveries: []pb.Delivery{
-// 			{
-// 				NumberOfPackages: 3,
-// 				DeliveryDate:     "Tomorrow",
-// 			},
-// 		},
-// 	}, nil
-// }
-
 func main() {
 	log.Println("Planet Express Ship")
 

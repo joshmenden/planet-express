@@ -8,6 +8,7 @@ import (
 
 	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
 
+	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 )
@@ -98,6 +99,9 @@ func main() {
 	crew, _ := getCrew(client)
 	deliveries, _ := listDeliveries(client)
 	delivery, _ := getDelivery(client)
+	test_json, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&delivery)
+
+	log.Println(test_json)
 	log.Println(ship)
 	log.Println(crew)
 	log.Println(deliveries)

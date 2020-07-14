@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 import logo from './logo.svg';
 import './App.css';
 
@@ -6,6 +7,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <p>
+          Planet Express!
+        </p>
+        <Button color="primary">Get Ship Information</Button>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

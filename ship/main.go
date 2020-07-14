@@ -33,6 +33,15 @@ func (s *planetExpressShipServer) GetShip(ctx context.Context, empty *empty.Empt
 	}, nil
 }
 
+func (s *planetExpressShipServer) GetCrew(ctx context.Context, empty *empty.Empty) (*pb.GetCrewResponse, error) {
+	return &pb.GetCrewResponse{
+		Crew: &pb.Crew{
+			NumberOfCrewmates: 5,
+			CrewName:          "flying dutchman's squadron",
+		},
+	}, nil
+}
+
 func main() {
 	log.Println("Planet Express Ship")
 

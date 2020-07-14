@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package planetexpress;
+option go_package = "pkg/planetexpress";
+
+message Crew {
+  int32 number_of_crewmates = 1;
+  string crew_name = 2;
+}
+
+message GetCrewResponse {
+  Crew crew = 1;
+}

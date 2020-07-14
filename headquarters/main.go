@@ -18,4 +18,5 @@ func main() {
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
 	http.Handle("/query", &relay.Handler{Schema: Schema})
 	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Printf("Listening for GQL Queries on addr: localhost:8080")
 }

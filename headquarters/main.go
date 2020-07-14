@@ -3,8 +3,10 @@ package main
 import (
 	"flag"
 	"log"
+	"net/http"
 
 	"github.com/golang/protobuf/jsonpb"
+	"github.com/graph-gophers/graphql-go/relay"
 )
 
 var (
@@ -21,6 +23,6 @@ func main() {
 
 	log.Printf(json)
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
-	// http.Handle("/query", &relay.Handler{Schema: Schema})
-	// log.Fatal(http.ListenAndServe(":8080", nil))
+	http.Handle("/query", &relay.Handler{Schema: Schema})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

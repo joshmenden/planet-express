@@ -11,15 +11,13 @@ const schemaString = `
 	schema {
 		query: Query
 	}
+
 	type Query {
-		# Generic greeting, e.g. "Hello, world!":
 		greet: String!
-		# Customized greeting, e.g. "Hello, Johan!":
 		greetPerson(person: String!): String!
-		# More customized greeting, e.g. "Good morning, Johan!":
 		greetPersonTimeOfDay(person: String!, timeOfDay: TimeOfDay!): String!
 	}
-	# Enumerate times of day:
+
 	enum TimeOfDay {
 		MORNING
 		AFTERNOON
@@ -30,7 +28,7 @@ const schemaString = `
 type RootResolver struct{}
 
 func (*RootResolver) Greet() string {
-	return "Hello, world!"
+	return "Hello, world 2.0!"
 }
 
 func (*RootResolver) GreetPerson(args struct{ Person string }) string {

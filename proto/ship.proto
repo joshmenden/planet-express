@@ -4,7 +4,7 @@ package planetexpress;
 option go_package = "pkg/planetexpress";
 
 import "crew.proto";
-// import "delivery.proto";
+import "delivery.proto";
 
 message Ship {
   enum FuelLevel {
@@ -18,7 +18,7 @@ message Ship {
   FuelLevel fuel_level = 3;
 
   Crew crew = 4;
-// Delivery delivery = 5;
+  Delivery delivery = 5;
 }
 
 message GetShipResponse {

@@ -95,15 +95,13 @@ func main() {
 	client := pb.NewPlanetExpressClient(conn)
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
 
-	ship, _ := getShip(client)
+	// *** These all work on their own, but now that they are returned with the Ship object, we no longer need them ***
 	// crew, _ := getCrew(client)
 	// deliveries, _ := listDeliveries(client)
 	// delivery, _ := getDelivery(client)
+
+	ship, _ := getShip(client)
 	testJSON, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&ship)
 
 	log.Println(testJSON)
-	// log.Println(ship)
-	// log.Println(crew)
-	// log.Println(deliveries)
-	// log.Println(delivery)
 }

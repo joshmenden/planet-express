@@ -21,6 +21,23 @@ var crew = pb.GetCrewResponse{
 	},
 }
 
+var deliveries = pb.ListDeliveriesResponse{
+	Deliveries: []*pb.Delivery{
+		&pb.Delivery{
+			NumberOfPackages: 3,
+			DeliveryDate:     "2020-07-15 00:00:00 -0600",
+		},
+		&pb.Delivery{
+			NumberOfPackages: 1,
+			DeliveryDate:     "2020-07-17 00:00:00 -0600",
+		},
+		&pb.Delivery{
+			NumberOfPackages: 12,
+			DeliveryDate:     "2020-08-17 00:00:00 -0600",
+		},
+	},
+}
+
 type planetExpressShipServer struct {
 	pb.UnimplementedPlanetExpressServer
 }
@@ -55,22 +72,7 @@ func (s *planetExpressShipServer) GetDelivery(ctx context.Context, request *pb.G
 }
 
 func (s *planetExpressShipServer) ListDeliveries(ctx context.Context, empty *empty.Empty) (*pb.ListDeliveriesResponse, error) {
-	return &pb.ListDeliveriesResponse{
-		Deliveries: []*pb.Delivery{
-			&pb.Delivery{
-				NumberOfPackages: 3,
-				DeliveryDate:     "2020-07-15 00:00:00 -0600",
-			},
-			&pb.Delivery{
-				NumberOfPackages: 1,
-				DeliveryDate:     "2020-07-17 00:00:00 -0600",
-			},
-			&pb.Delivery{
-				NumberOfPackages: 12,
-				DeliveryDate:     "2020-08-17 00:00:00 -0600",
-			},
-		},
-	}, nil
+	return &deliveries, nil
 }
 
 func main() {

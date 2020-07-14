@@ -1,6 +1,6 @@
-module gitlab.com/<gitlab-username>/planet-express
+module github.com/joshmenden/planet-express
 
-go 1.13
+go 1.14
 
 require (
 	github.com/golang/protobuf v1.4.2

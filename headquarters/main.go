@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	// pb "gitlab.com/<gitlab-username>/planet-express/ship/pkg/planetexpress"
+	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"

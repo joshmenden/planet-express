@@ -17,7 +17,7 @@ const schemaString = `
 
 	type Delivery {
 		uuid: String!
-		// number_of_packages: Int
+		numberOfPackages: Int!
 		deliveryDate: String!
 	}
 
@@ -41,7 +41,7 @@ type Ship struct {
 
 type Delivery struct {
 	Uuid             string
-	NumberOfPackages int
+	NumberOfPackages int32
 	DeliveryDate     string
 }
 
@@ -52,9 +52,9 @@ var ships = []Ship{
 		FuelLevel: "FULL",
 		Deliveries: []Delivery{
 			{
-				Uuid: "abc987654321",
-				// NumberOfPackages: 4,
-				DeliveryDate: "march 3 1990",
+				Uuid:             "abc987654321",
+				NumberOfPackages: 4,
+				DeliveryDate:     "march 3 1990",
 			},
 		},
 	},

@@ -11,6 +11,7 @@ import (
 	"github.com/graph-gophers/graphql-go/relay"
 	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
 
+	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 )
@@ -98,7 +99,12 @@ func main() {
 	}
 	defer conn.Close()
 
-	// client := pb.NewPlanetExpressClient(conn)
+	client := pb.NewPlanetExpressClient(conn)
+	ship, _ := getShip(client)
+	json, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&ship)
+
+	log.Printf(json)
+
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
 	s := `
 					type Query {

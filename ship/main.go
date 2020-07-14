@@ -37,7 +37,7 @@ func (s *planetExpressShipServer) GetCrew(ctx context.Context, empty *empty.Empt
 	return &pb.GetCrewResponse{
 		Crew: &pb.Crew{
 			NumberOfCrewmates: 5,
-			CrewName:          "flying dutchman's squadron",
+			CrewName:          "flying dutchman's squadron III",
 		},
 	}, nil
 }

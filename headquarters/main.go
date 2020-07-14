@@ -3,14 +3,14 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
-	"os"
+	"net/http"
 	"time"
 
+	graphql "github.com/graph-gophers/graphql-go"
+	"github.com/graph-gophers/graphql-go/relay"
 	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
 
-	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 )
@@ -79,6 +79,10 @@ func getDelivery(client pb.PlanetExpressClient) (pb.Delivery, error) {
 	return *resp.Delivery, nil
 }
 
+type query struct{}
+
+func (_ *query) Hello() string { return "Hello, world!" }
+
 func main() {
 	log.Println("Planet Express Headquarters")
 
@@ -94,22 +98,37 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := pb.NewPlanetExpressClient(conn)
+	// client := pb.NewPlanetExpressClient(conn)
 	log.Printf("Connected to planet express ship with addr: %s\n\n", *serverAddr)
-
-	// *** These all work on their own, but now that they are returned with the Ship object, we no longer need them ***
-	// crew, _ := getCrew(client)
-	// deliveries, _ := listDeliveries(client)
-	// delivery, _ := getDelivery(client)
-
-	ship, _ := getShip(client)
-	json, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&ship)
-
-	f, err := os.Create("./planet_express.json")
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-	f.WriteString(json)
-	fmt.Printf("I've got a great feeling about this - Succesfully saved JSON of Ship data!\n")
+	s := `
+					type Query {
+									hello: String!
+					}
+	`
+	schema := graphql.MustParseSchema(s, &query{})
+	http.Handle("/query", &relay.Handler{Schema: schema})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
+
+// import (
+// 	"log"
+// 	"net/http"
+
+// 	graphql "github.com/graph-gophers/graphql-go"
+// 	"github.com/graph-gophers/graphql-go/relay"
+// )
+
+// type query struct{}
+
+// func (_ *query) Hello() string { return "Hello, world!" }
+
+// func main() {
+// 	s := `
+// 					type Query {
+// 									hello: String!
+// 					}
+// 	`
+// 	schema := graphql.MustParseSchema(s, &query{})
+// 	http.Handle("/query", &relay.Handler{Schema: schema})
+// 	log.Fatal(http.ListenAndServe(":8080", nil))
+// }

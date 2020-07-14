@@ -14,6 +14,13 @@ import (
 
 const port = 10000
 
+var crew = pb.GetCrewResponse{
+	Crew: &pb.Crew{
+		NumberOfCrewmates: 5,
+		CrewName:          "flying dutchman's squadron",
+	},
+}
+
 type planetExpressShipServer struct {
 	pb.UnimplementedPlanetExpressServer
 }
@@ -34,12 +41,7 @@ func (s *planetExpressShipServer) GetShip(ctx context.Context, empty *empty.Empt
 }
 
 func (s *planetExpressShipServer) GetCrew(ctx context.Context, empty *empty.Empty) (*pb.GetCrewResponse, error) {
-	return &pb.GetCrewResponse{
-		Crew: &pb.Crew{
-			NumberOfCrewmates: 5,
-			CrewName:          "flying dutchman's squadron",
-		},
-	}, nil
+	return &crew, nil
 }
 
 func (s *planetExpressShipServer) GetDelivery(ctx context.Context, request *pb.GetDeliveryRequest) (*pb.GetDeliveryResponse, error) {

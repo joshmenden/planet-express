@@ -42,6 +42,15 @@ func (s *planetExpressShipServer) GetCrew(ctx context.Context, empty *empty.Empt
 	}, nil
 }
 
+func (s *planetExpressShipServer) GetDelivery(ctx context.Context, request *pb.GetDeliveryRequest) (*pb.GetDeliveryResponse, error) {
+	return &pb.GetDeliveryResponse{
+		Delivery: &pb.Delivery{
+			NumberOfPackages: 50,
+			DeliveryDate:     "2020-09-15 00:00:00 -0600",
+		},
+	}, nil
+}
+
 func (s *planetExpressShipServer) ListDeliveries(ctx context.Context, empty *empty.Empty) (*pb.ListDeliveriesResponse, error) {
 	return &pb.ListDeliveriesResponse{
 		Deliveries: []*pb.Delivery{

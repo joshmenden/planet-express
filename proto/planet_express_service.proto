@@ -14,5 +14,6 @@ service PlanetExpress {
     rpc GetCrew(google.protobuf.Empty) returns (GetCrewResponse) {}
 
     rpc ListDeliveries(google.protobuf.Empty) returns (ListDeliveriesResponse) {}
-    // rpc GetDelivery(GetDeliveryRequest) returns (GetDeliveryResponse) {}
+
+    rpc GetDelivery(GetDeliveryRequest) returns (GetDeliveryResponse) {}
 }

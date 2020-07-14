@@ -11,3 +11,11 @@ message Delivery {
 message ListDeliveriesResponse {
   repeated Delivery deliveries = 1;
 }
+
+message GetDeliveryRequest {
+  string uuid = 1;
+}
+
+message GetDeliveryResponse {
+  Delivery delivery = 1;
+}

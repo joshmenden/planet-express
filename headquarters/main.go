@@ -44,7 +44,7 @@ func getCrew(client pb.PlanetExpressClient) (pb.Crew, error) {
 	return *resp.Crew, nil
 }
 
-func ListDeliveries(client pb.PlanetExpressClient) ([]*pb.Delivery, error) {
+func listDeliveries(client pb.PlanetExpressClient) ([]*pb.Delivery, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -58,19 +58,23 @@ func ListDeliveries(client pb.PlanetExpressClient) ([]*pb.Delivery, error) {
 	return resp.Deliveries, nil
 }
 
-// func ListDeliveries(client pb.PlanetExpressClient) (pb.Delivery, error) {
-// 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-// 	defer cancel()
+func getDelivery(client pb.PlanetExpressClient) (pb.Delivery, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
 
-// 	resp, err := client.ListDeliveries(ctx, &empty.Empty{})
+	request := &pb.GetDeliveryRequest{
+		Uuid: "71781e9f-96e6-4272-8eb2-dcc32b868ecc",
+	}
 
-// 	if err != nil {
-// 		log.Fatalf("%v.ListDeliveries(_) = _, %v: ", client, err)
-// 		return pb.Deliveries, err
-// 	}
+	resp, err := client.GetDelivery(ctx, request)
 
-// 	return resp.Deliveries, nil
-// }
+	if err != nil {
+		log.Fatalf("%v.GetDelivery(_) = _, %v: ", client, err)
+		return pb.Delivery{}, err
+	}
+
+	return *resp.Delivery, nil
+}
 
 func main() {
 	log.Println("Planet Express Headquarters")
@@ -92,8 +96,10 @@ func main() {
 
 	ship, _ := getShip(client)
 	crew, _ := getCrew(client)
-	deliveries, _ := ListDeliveries(client)
+	deliveries, _ := listDeliveries(client)
+	delivery, _ := getDelivery(client)
 	log.Println(ship)
 	log.Println(crew)
 	log.Println(deliveries)
+	log.Println(delivery)
 }

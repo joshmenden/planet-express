@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
+	"os"
 	"time"
 
 	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
@@ -101,7 +103,13 @@ func main() {
 	// delivery, _ := getDelivery(client)
 
 	ship, _ := getShip(client)
-	testJSON, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&ship)
+	json, err := (&jsonpb.Marshaler{OrigName: true}).MarshalToString(&ship)
 
-	log.Println(testJSON)
+	f, err := os.Create("./planet_express.json")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	f.WriteString(json)
+	fmt.Printf("I've got a great feeling about this - Succesfully saved JSON of Ship data!\n")
 }

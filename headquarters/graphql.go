@@ -2,6 +2,7 @@ package main
 
 import (
 	graphql "github.com/graph-gophers/graphql-go"
+	pb "github.com/joshmenden/planet-express/ship/pkg/planetexpress"
 )
 
 const schemaString = `
@@ -22,7 +23,7 @@ const schemaString = `
 	}
 
 	type Query {
-		ships: [Ship!]!
+		ship: Ship!
 	}
 
 	enum FuelLevel {
@@ -45,32 +46,16 @@ type Delivery struct {
 	DeliveryDate     string
 }
 
-var ships = []Ship{
-	{
-		Name:      "test ship here",
-		Location:  "Lehi UT",
-		FuelLevel: "FULL",
-		Deliveries: []Delivery{
-			{
-				Uuid:             "abc987654321",
-				NumberOfPackages: 4,
-				DeliveryDate:     "march 3 1990",
-			},
-		},
-	},
-}
-
 type RootResolver struct{}
 
-func (r *RootResolver) Ships() ([]Ship, error) {
-	return ships, nil
+func (r *RootResolver) Ship() (pb.Ship, error) {
+	client, conn := getPbClient()
+	defer conn.Close()
+	pbShip, _ := getShip(client)
+	return pbShip, nil
 }
 
 var (
-	// We can pass an option to the schema so we don’t need to
-	// write a method to access each type’s field:
 	opts   = []graphql.SchemaOpt{graphql.UseFieldResolvers()}
 	Schema = graphql.MustParseSchema(schemaString, &RootResolver{}, opts...)
 )
-
-// var Schema = graphql.MustParseSchema(schemaString, &RootResolver{})

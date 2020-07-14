@@ -3,6 +3,7 @@ syntax = "proto3";
 package planetexpress;
 option go_package = "pkg/planetexpress";
 
+import "delivery.proto";
 import "crew.proto";
 import "ship.proto";
 import "google/protobuf/empty.proto";
@@ -12,6 +13,6 @@ service PlanetExpress {
 
     rpc GetCrew(google.protobuf.Empty) returns (GetCrewResponse) {}
 
-    // rpc ListDeliveries(google.protobuf.Empty) returns (ListDeliveriesResponse) {}
+    rpc ListDeliveries(google.protobuf.Empty) returns (ListDeliveriesResponse) {}
     // rpc GetDelivery(GetDeliveryRequest) returns (GetDeliveryResponse) {}
 }

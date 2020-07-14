@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package planetexpress;
+option go_package = "pkg/planetexpress";
+
+message Delivery {
+  int32 number_of_packages = 1;
+  string delivery_date = 2;
+}
+
+message ListDeliveriesResponse {
+  repeated Delivery deliveries = 1;
+}

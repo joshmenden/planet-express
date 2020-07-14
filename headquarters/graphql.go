@@ -25,6 +25,7 @@ const schemaString = `
 	type Query {
 		ship: Ship!
 		deliveries: [Delivery!]!
+		delivery(uuid: String!): Delivery!
 	}
 
 	enum FuelLevel {
@@ -48,6 +49,13 @@ func (r *RootResolver) Deliveries() ([]*pb.Delivery, error) {
 	defer conn.Close()
 	deliveries, _ := listDeliveries(client)
 	return deliveries, nil
+}
+
+func (r *RootResolver) Delivery(args struct{ UUID string }) (pb.Delivery, error) {
+	client, conn := getPbClient()
+	defer conn.Close()
+	delivery, _ := getDelivery(client, args.UUID)
+	return delivery, nil
 }
 
 var (

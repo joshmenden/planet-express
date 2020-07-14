@@ -52,12 +52,12 @@ func listDeliveries(client pb.PlanetExpressClient) ([]*pb.Delivery, error) {
 	return resp.Deliveries, nil
 }
 
-func getDelivery(client pb.PlanetExpressClient) (pb.Delivery, error) {
+func getDelivery(client pb.PlanetExpressClient, UUID string) (pb.Delivery, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	request := &pb.GetDeliveryRequest{
-		Uuid: "1fd2567c-78fa-457b-a9dd-176826087058",
+		Uuid: UUID,
 	}
 
 	resp, err := client.GetDelivery(ctx, request)

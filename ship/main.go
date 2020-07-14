@@ -16,8 +16,21 @@ const port = 10000
 
 var crew = pb.GetCrewResponse{
 	Crew: &pb.Crew{
-		NumberOfCrewmates: 5,
-		CrewName:          "flying dutchman's squadron",
+		CrewName: "The Good Guys",
+		CrewMembers: []*pb.CrewMember{
+			&pb.CrewMember{
+				Name: "Luke Skywalker",
+				Role: pb.CrewMember_GUNMAN,
+			},
+			&pb.CrewMember{
+				Name: "Han Solo",
+				Role: pb.CrewMember_PILOT,
+			},
+			&pb.CrewMember{
+				Name: "Chewbacca",
+				Role: pb.CrewMember_NAVIGATOR,
+			},
+		},
 	},
 }
 
@@ -54,8 +67,8 @@ func (s *planetExpressShipServer) GetShip(ctx context.Context, empty *empty.Empt
 	log.Printf("Getting ship...")
 	return &pb.GetShipResponse{
 		Ship: &pb.Ship{
-			Name:       "the millenium falcon",
-			Location:   "tatooine",
+			Name:       "The Millenium Falcon",
+			Location:   "Tatooine",
 			FuelLevel:  pb.Ship_FULL,
 			Crew:       crew.Crew,
 			Deliveries: deliveries.Deliveries,

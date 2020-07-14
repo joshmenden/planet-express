@@ -4,8 +4,19 @@ package planetexpress;
 option go_package = "pkg/planetexpress";
 
 message Crew {
-  int32 number_of_crewmates = 1;
+  repeated CrewMember crew_members = 1;
   string crew_name = 2;
+}
+
+message CrewMember {
+  string name = 1;
+  enum Role {
+    PILOT = 0;
+    GUNMAN = 1;
+    NAVIGATOR = 2;
+  }
+  Role role = 2;
+
 }
 
 message GetCrewResponse {

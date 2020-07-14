@@ -14,12 +14,23 @@ const schemaString = `
 		location: String!
 		fuelLevel: FuelLevel!
 		deliveries: [Delivery!]!
+		crew: Crew!
 	}
 
 	type Delivery {
 		uuid: String!
 		numberOfPackages: Int!
 		deliveryDate: String!
+	}
+
+	type Crew {
+		crewName: String!
+		crewMembers: [CrewMember!]!
+	}
+
+	type CrewMember {
+		name: String!
+		role: Role!
 	}
 
 	type Query {
@@ -32,6 +43,12 @@ const schemaString = `
 		EMPTY
 		LOW
 		FULL
+	}
+
+	enum Role {
+		PILOT
+		GUNMAN
+		NAVIGATOR
 	}
 `
 

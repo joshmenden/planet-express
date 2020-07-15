@@ -5,6 +5,7 @@ A fully functional end-to-end app with everything except a DB. To see it in acti
 ```sh
 ./ship/ship
 ./headquarters/headquarters
+yarn --cwd ./dashboard install
 yarn --cwd ./dashboard start
 ```
 

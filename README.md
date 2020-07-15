@@ -9,7 +9,7 @@ yarn --cwd ./dashboard start
 ```
 
 Aside from the tasks accomplished below, I also:
-* Refactored the `main.go` files into a few different files depending on responsibilities
+* Refactored the `headquarters/main.go` files into a few different files depending on responsibilities
 * Implemented the `GetShip` `GetCrew`, `GetDelivery` and `ListDeliveries` methods all in GraphQL, with `GetDelivery` searching based on UUID (only `GetShip` is shown in the React UI)
 * Added a `CrewMember` resource to specify the members of the `Crew`
 
